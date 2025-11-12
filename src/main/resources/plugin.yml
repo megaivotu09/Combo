@@ -1,0 +1,40 @@
+# Tên của plugin. Đây là tên sẽ hiển thị trong lệnh /plugins.
+# Nên là một tên ngắn gọn, dễ nhớ và không có khoảng trắng.
+name: ComboPlugin
+
+# Phiên bản của plugin. Luôn là số để dễ dàng quản lý các bản cập nhật.
+version: 1.0.0 # Hoặc 1.0-SNAPSHOT nếu đang trong giai đoạn phát triển
+
+# Lớp Java chính của plugin (main class).
+# Đây là lớp kế thừa từ JavaPlugin và chứa phương thức onEnable()/onDisable().
+# Định dạng: <package>.<ClassName>
+main: org.example.ComboPlugin
+
+# Phiên bản API của Bukkit/Spigot mà plugin này được phát triển trên đó.
+# Điều này rất quan trọng để đảm bảo tính tương thích.
+# Ví dụ: 1.13, 1.14, 1.15, 1.16, 1.17, 1.18, 1.19, 1.20, 1.21.
+# Hãy đặt đúng phiên bản API của server bạn muốn chạy plugin.
+api-version: 1.19 # Thay đổi thành phiên bản server Minecraft của bạn (ví dụ: 1.20.1, 1.18)
+
+# Mô tả ngắn gọn về chức năng của plugin. (Tùy chọn)
+description: Một plugin cho phép người chơi tạo chuỗi combo click chuột khi sneak.
+
+# Tên tác giả của plugin. (Tùy chọn)
+authors: [YourName] # Thay thế bằng tên của bạn
+
+# Trang web của plugin hoặc thông tin thêm. (Tùy chọn)
+# website: https://yourwebsite.com
+
+# Danh sách các lệnh (commands) mà plugin này sẽ đăng ký. (Tùy chọn, hiện tại plugin này không có lệnh nào)
+# commands:
+#   mycommand:
+#     description: Mô tả lệnh của tôi.
+#     usage: /<command> [arg]
+#     permission: comboplugin.command
+#     permission-message: Bạn không có quyền sử dụng lệnh này.
+
+# Danh sách các quyền (permissions) mà plugin này sẽ sử dụng. (Tùy chọn, hiện tại plugin này không định nghĩa quyền)
+# permissions:
+#   comboplugin.command:
+#     description: Cho phép sử dụng lệnh /mycommand.
+#     default: op # Mặc định chỉ OP mới có quyền này
