@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>ComboPlugin</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source> <!-- Hoặc phiên bản Java bạn muốn dùng (ví dụ: 11, 17) -->
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spigot.version>1.19.4-R0.1-SNAPSHOT</spigot.version> <!-- Điều chỉnh phiên bản Spigot/Paper của bạn -->
+    </properties>
+
+    <repositories>
+        <!-- Kho lưu trữ cho Spigot/Paper API -->
+        <repository>
+            <id>spigotmc-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <!-- Hoặc nếu bạn dùng PaperMC: -->
+        <!--
+        <repository>
+            <id>papermc-repo</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+        -->
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <!-- Phụ thuộc vào Spigot API (để xây dựng plugin Minecraft) -->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>${spigot.version}</version>
+            <scope>provided</scope> <!-- 'provided' nghĩa là server Minecraft sẽ cung cấp API này khi chạy -->
+        </dependency>
+        <!-- Hoặc nếu bạn dùng PaperMC: -->
+        <!--
+        <dependency>
+            <groupId>com.destroystokyo.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>${spigot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        -->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Plugin để biên dịch mã Java -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <!-- Plugin để đóng gói plugin thành file JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <outputDirectory>C:\Users\YourUser\Desktop\MinecraftServer\plugins</outputDirectory>
+                    <!-- Bạn có thể thay đổi đường dẫn này để JAR được copy thẳng vào thư mục plugins của server bạn -->
+                    <!-- Hoặc xóa dòng này để JAR được tạo trong thư mục target/ và bạn copy thủ công -->
+                </configuration>
+            </plugin>
+            <!--
+            Nếu bạn có bất kỳ phụ thuộc nào khác (không phải 'provided') mà plugin của bạn cần,
+            bạn có thể sử dụng maven-shade-plugin để đóng gói chúng vào file JAR cuối cùng.
+            Điều này thường không cần thiết cho các plugin Bukkit cơ bản vì hầu hết API là 'provided'.
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            -->
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+</project>
