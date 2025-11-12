@@ -1,0 +1,47 @@
+name: Maven Build and Release
+
+on:
+  push:
+    branches:
+      - main # Hoặc master, tùy thuộc vào tên nhánh chính của bạn
+  pull_request:
+    branches:
+      - main # Hoặc master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # Chạy trên môi trường Ubuntu mới nhất
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4 # Lấy mã nguồn từ repository
+
+    - name: Set up JDK 17 # Chọn phiên bản Java phù hợp với plugin của bạn (ví dụ: 8, 11, 17)
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: 'maven' # Kích hoạt caching cho Maven để tăng tốc độ build
+
+    - name: Build with Maven
+      run: mvn clean package # Chạy lệnh Maven để build dự án và tạo JAR
+
+    - name: Upload plugin JAR artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ComboPlugin-${{ github.ref_name }} # Tên artifact (ví dụ: ComboPlugin-main)
+        path: target/*.jar # Đường dẫn đến file JAR đã build bởi Maven (thường là trong thư mục target)
+
+    # Tùy chọn: Tự động tạo GitHub Release khi có tag được push
+    # Ví dụ: bạn push tag v1.0, workflow này sẽ tạo một bản phát hành trên GitHub
+    - name: Create GitHub Release
+      if: startsWith(github.ref, 'refs/tags/v') # Chỉ chạy khi push một tag bắt đầu bằng 'v' (ví dụ: v1.0, v1.1)
+      uses: softprops/action-gh-release@v1
+      with:
+        files: target/*.jar # Đính kèm file JAR vào bản phát hành
+        # name: Release ${{ github.ref_name }} # Tên bản phát hành
+        # body: |
+        #   A new version of ComboPlugin has been released!
+        #   - See changes in ${GITHUB_REF_NAME}.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Token tự động được cung cấp bởi GitHub
