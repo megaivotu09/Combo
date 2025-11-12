@@ -1,0 +1,31 @@
+# Cài đặt chung cho plugin Combo
+settings:
+  # Có yêu cầu người chơi phải đang sneak để thực hiện combo hay không.
+  # Mặc định là true (có).
+  require-sneak: true
+
+# Cài đặt liên quan đến chuỗi combo
+combo:
+  # Thời gian tối đa (tính bằng mili giây) giữa hai lần click liên tiếp để combo không bị reset.
+  # Mặc định là 1000ms (1 giây).
+  duration-ms: 1000
+
+  # Số lượng click tối đa trong một chuỗi combo.
+  # Mặc định là 4 click.
+  max-clicks: 4
+
+  # Ngưỡng thời gian (tính bằng mili giây) để lọc các lần nhấp chuột quá nhanh, tránh double click.
+  # Mặc định là 50ms.
+  double-click-threshold-ms: 50
+
+# Cài đặt tin nhắn gửi đến người chơi
+messages:
+  # Tin nhắn hiển thị khi combo đạt số lượng click tối đa (MAX_COMBO).
+  # Sử dụng & để tạo mã màu Minecraft.
+  combo-completed: "&aCOMBO HOÀN THÀNH!"
+
+  # Tin nhắn hiển thị khi combo bị reset do quá thời gian hoặc không đạt đủ click.
+  combo-reset: "&cCombo đã bị reset."
+
+  # Tin nhắn hiển thị khi người chơi cố gắng combo mà không sneak (nếu require-sneak là true).
+  not-sneaking: "&eBạn cần phải sneak để thực hiện combo."
